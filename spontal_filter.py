@@ -5,11 +5,8 @@ import xml.etree.ElementTree as ET
 
 
 def main(argv):
-	
-	file = argv[1]
-	outputfile = argv[2]
-	
-	tree = ET.parse(file)
+
+	tree = ET.parse(argv[1])
 	root = tree.getroot()
 	
 	for point in root.findall('POINT'):
@@ -18,9 +15,9 @@ def main(argv):
 		bottom=int(point.find('BOTTOM_HZ').text)
 		top=int(point.find('TOP_HZ').text)
 		
-		if ((start < bottom) or (start > top) or (end < bottom) or (end > top)):
+		if not (bottom < end < top) or not (bottom < start < top):
 			root.remove(point)
-		tree.write(outputfile)
+	tree.write(argv[2])
 
 if __name__ == "__main__":
 	main(sys.argv)
