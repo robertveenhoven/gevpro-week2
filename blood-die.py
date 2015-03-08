@@ -14,7 +14,6 @@ def main():
 		result = matching(language[0],language[1],language[2],language[3])
 		blood = result.blood.split()
 		die = result.die.split()
-		#[json.dump(language,output) for i in blood if i in die]
 		[matchlist.append(language) for item in blood if item in die]
 		
 
